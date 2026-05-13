@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Bangla AI Call Center — Investor Roadmap</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --green: #1a9e72;
+    --green-light: #d6f5eb;
+    --green-dark: #0d6b4e;
+    --teal: #0e7490;
+    --ink: #111827;
+    --ink2: #374151;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --bg: #f9fafb;
+    --white: #ffffff;
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  .header {
+    background: var(--ink);
+    color: #fff;
+    padding: 48px 40px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 280px; height: 280px;
+    border-radius: 50%;
+    background: rgba(26,158,114,0.15);
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: 30%;
+    width: 160px; height: 160px;
+    border-radius: 50%;
+    background: rgba(26,158,114,0.08);
+  }
+  .header-eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 10px;
+  }
+  .header-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 38px;
+    line-height: 1.1;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+  .header-sub {
+    font-size: 14px;
+    color: rgba(255,255,255,0.55);
+    font-weight: 300;
+    margin-bottom: 32px;
+  }
+  .header-stats {
+    display: flex;
+    gap: 0;
+    flex-wrap: wrap;
+  }
+  .hstat {
+    padding: 14px 24px;
+    border-left: 1px solid rgba(255,255,255,0.1);
+  }
+  .hstat:first-child { border-left: none; padding-left: 0; }
+  .hstat-l { font-size: 11px; color: rgba(255,255,255,0.4); margin-bottom: 4px; letter-spacing: .04em; }
+  .hstat-v { font-size: 16px; font-weight: 500; color: #fff; }
+
+  /* CONTENT */
+  .content { max-width: 820px; margin: 0 auto; padding: 40px 24px 60px; }
+
+  /* TIMELINE */
+  .timeline { position: relative; padding-left: 40px; }
+  .tl-spine {
+    position: absolute; left: 14px; top: 6px; bottom: 6px;
+    width: 2px; background: var(--border);
+  }
+
+  .phase-block { margin-bottom: 10px; }
+  .phase-wrap { position: relative; }
+
+  .phase-dot {
+    position: absolute;
+    left: -40px; top: 16px;
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: var(--white);
+    border: 2px solid var(--green);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 500;
+    color: var(--green-dark);
+    z-index: 1;
+  }
+
+  .phase-pill {
+    display: flex; align-items: center; gap: 12px;
+    padding: 14px 18px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: box-shadow .2s, border-color .2s;
+    user-select: none;
+  }
+  .phase-pill:hover { border-color: var(--green); box-shadow: 0 2px 12px rgba(26,158,114,0.1); }
+  .phase-info { flex: 1; }
+  .phase-name { font-size: 15px; font-weight: 500; color: var(--ink); }
+  .phase-date { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .phase-dur {
+    font-size: 11px; font-weight: 500;
+    padding: 4px 10px; border-radius: 99px;
+    background: var(--green-light); color: var(--green-dark);
+    white-space: nowrap;
+  }
+  .phase-chev {
+    font-size: 16px; color: var(--muted);
+    transition: transform .25s;
+    line-height: 1;
+  }
+  .phase-chev.open { transform: rotate(90deg); }
+
+  /* MILESTONES */
+  .milestones { display: none; padding: 10px 0 6px 0; }
+  .milestones.open { display: block; }
+
+  .milestone {
+    display: flex; gap: 14px;
+    padding: 8px 12px 8px 0;
+    position: relative;
+  }
+  .m-dot-col {
+    position: absolute; left: -27px; top: 0;
+    display: flex; flex-direction: column; align-items: center;
+  }
+  .m-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    border: 1.5px solid var(--green);
+    background: var(--white);
+    margin-top: 10px; flex-shrink: 0;
+  }
+  .m-connector {
+    width: 1.5px; flex: 1;
+    background: var(--border);
+    min-height: 20px;
+    margin-top: 2px;
+  }
+  .milestone:last-child .m-connector { display: none; }
+
+  .m-date {
+    font-size: 11px; font-weight: 500;
+    color: var(--green-dark);
+    white-space: nowrap;
+    min-width: 52px;
+    padding-top: 9px;
+  }
+  .m-body { flex: 1; padding-top: 7px; padding-bottom: 10px; }
+  .m-title { font-size: 13px; font-weight: 500; color: var(--ink); }
+  .m-desc { font-size: 12px; color: var(--muted); margin-top: 3px; line-height: 1.55; }
+  .m-outcome {
+    display: inline-block;
+    margin-top: 6px;
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: var(--radius-sm);
+    background: var(--green-light);
+    color: var(--green-dark);
+    font-weight: 500;
+  }
+
+  /* FINAL BOX */
+  .final-box {
+    margin-top: 24px;
+    border: 2px solid var(--green);
+    border-radius: var(--radius);
+    padding: 20px 22px;
+    background: var(--white);
+  }
+  .final-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 17px; color: var(--ink);
+    margin-bottom: 12px;
+  }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    font-size: 12px; color: var(--ink2);
+    background: var(--bg);
+    padding: 6px 12px; border-radius: 99px;
+    border: 1px solid var(--border);
+  }
+
+  /* SECTION LABEL */
+  .section-label {
+    font-size: 11px; font-weight: 500;
+    letter-spacing: .1em; text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+
+  /* PRINT */
+  @media print {
+    .milestones { display: block !important; }
+    .phase-chev { display: none; }
+    body { background: #fff; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div style="margin-bottom:18px;">
+    <a href="https://loopfreight.io/" target="_blank" style="display:inline-flex;align-items:center;gap:8px;text-decoration:none;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);padding:7px 14px;border-radius:99px;">
+      <span style="font-size:13px;font-weight:500;color:#fff;letter-spacing:.01em;">loopfreight.io</span>
+      <span style="font-size:11px;color:rgba(255,255,255,0.4);">↗</span>
+    </a>
+  </div>
+  <div class="header-eyebrow">Investor Roadmap · 2026</div>
+  <div class="header-title">Bangla AI<br/>Call Center</div>
+  <div class="header-sub">Full product journey — June 10 to August 20, 2026</div>
+  <div class="header-stats">
+    <div class="hstat"><div class="hstat-l">Project start</div><div class="hstat-v">Jun 10, 2026</div></div>
+    <div class="hstat"><div class="hstat-l">Total phases</div><div class="hstat-v">6 phases</div></div>
+    <div class="hstat"><div class="hstat-l">Duration</div><div class="hstat-v">71 days</div></div>
+    <div class="hstat"><div class="hstat-l">MVP ready</div><div class="hstat-v">Aug 20, 2026</div></div>
+    <div class="hstat"><div class="hstat-l">Commercial</div><div class="hstat-v">Sep 2026+</div></div>
+  </div>
+</div>
+
+<div class="content">
+  <div class="section-label">Click any phase to expand milestones</div>
+
+  <div class="timeline">
+    <div class="tl-spine"></div>
+
+    <!-- PHASE 1 -->
+    <div class="phase-block">
+      <div class="phase-wrap">
+        <div class="phase-dot">1</div>
+        <div class="phase-pill" onclick="toggle(this)">
+          <div class="phase-info">
+            <div class="phase-name">Teaching the AI to Speak Bangla</div>
+            <div class="phase-date">Jun 10 — Jun 20, 2026</div>
+          </div>
+          <div class="phase-dur">10 days</div>
+          <div class="phase-chev open">›</div>
+        </div>
+      </div>
+      <div class="milestones open">
+        <div class="milestone">
+          <div class="m-dot-col"><div class="m-dot"></div><div class="m-connector"></div></div>
+          <div class="m-date">Jun 10</div>
+          <div class="m-body">
+            <div class="m-title">Voice training data collected</div>
+            <div class="m-desc">We gather real Bangla conversations, customer service audio, and freight industry phrases — the raw material that will make our AI sound like a local, not a machine</div>
+          </div>
+        </div>
+        <div class="milestone">
+          <div class="m-dot-col"><div class="m-dot"></div><div class="m-connector"></div></div>
+          <div class="m-date">Jun 13</div>
+          <div class="m-body">
+            <div class="m-title">AI voice model customised for Bangla</div>
+            <div class="m-desc">The AI is trained on our collected dataset so it understands Bangladeshi accents, local phrasing, and freight-specific vocabulary — delivering the right answer, not just a close one</div>
+          </div>
+        </div>
+        <div class="milestone">
+          <div class="m-dot-col"><div class="m-dot"></div><div class="m-connector"></div></div>
+          <div class="m-date">Jun 16</div>
+          <div class="m-body">
+            <div class="m-title">Natural Bangla voice ready for calls</div>
+            <div class="m-desc">The AI can now speak back to customers in clear, natural Bangla — production-ready voice infrastructure deployed so calls can go live on demand</div>
+          </div>
+        </div>
+        <div class="milestone">
+          <div class="m-dot-col"><div class="m-dot"></div></div>
+          <div class="m-date">Jun 20 ✦</div>
+          <div class="m-body">
+            <div class="m-title">Phase 1 complete</div>
+            <div class="m-outcome">AI listens to Bangla → understands it → responds naturally in Bangla — voice infrastructure live</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHASE 2 -->
+    <div class="phase-block">
+      <div class="phase-wrap">
+        <div class="phase-dot">2</div>
+        <div class="phase-pill" onclick="toggle(this)">
+          <div class="phase-info">
+            <div class="phase-name">Connecting AI Voice to the Phone Network</div>
+            <div class="phase-date">Jun 21 — Jul 5, 2026</div>
+          </div>
+          <div class="phase-dur">15 days</div>
+          <div class="phase-chev">›</div>
+        </div>
+      </div>
+      <div class="milestones">
+        <div class="milestone">
+          <div class="m-dot-col"><div class="m-dot"></div><div class="m-connector"></div></div>
+          <div class="m-date">Jun 21</div>
+          <div class="m-body">
+            <div class="m-title">AI ear and mouth connected to real calls</div>
+            <div class="m-desc">The voice understanding (listening) and voice speaking (responding) capabilities are plugged directly into our phone system — the AI can now answer and make real phone calls</div>
+          </div>
+        </div>
+        <div class="milestone">
+          <div class="m-dot-col"><div class="m-dot"></div><div class="m-connector"></div></div>
+          <div class="m-date">Jun 25</div>
+          <div class="m-body">
+            <div class="m-title">Conversation flow designed</div>
+            <div class="m-desc">Greeting scripts, call routing logic, and FAQ responses scripted — the AI knows how to open a call, keep it on track, and close it professionally</div>
+          </div>
+        </div>
+        <div class="milestone">
+          <div class="m-dot-col"><div class="m-dot"></div><div class="m-connector"></div></div>
+          <div class="m-date">Jun 25</div>
+          <div class="m-body">
+            <div class="m-title">Bangla-English code-switching</div>
+            <div class="m-desc">AI handles real-world mixed-language conversations naturally mid-call</div>
+          </div>
+        </div>
+        <div class="milestone">
+          <div class="m-dot-col"><div class="m-dot"></div><div class="m-connector"></div></div>
+          <div class="m-date">Jun 29</div>
+          <div class="m-body">
+            <div class="m-title">Full end-to-end call tested</div>
+            <div class="m-desc">A real phone rings, the AI answers, holds a conversation, and handles interruptions without losing the thread — just as a skilled human agent would</div>
+          </div>
+        </div>
+        <div class="milestone">
+          <div class="m-dot-col"><div class="m-dot"></div></div>
+          <div class="m-date">Jul 5 ✦</div>
+          <div class="m-body">
+            <div class="m-title">Phase 2 complete</div>
+            <div class="m-outcome">AI holds natural multi-turn Bangla phone conversations end-to-end — live on the phone network</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHASE 3 -->
+    <div class="phase-block">
+      <div class="phase-wrap">
+        <div class="phase-dot">3</div>
+        <div class="phase-pill" onclick="toggle(this)">
+          <div class="phase-info">
+            <div class="phase-name">Safety, Trust & Guardrails</div>
+            <div class="phase-date">Jul 6 — Jul 20, 2026</div>
+          </div>
+          <div class="phase-dur">15 days</div>
+          <div class="phase-chev">›</div>
+        </div>
+      </div>
+      <div class="milestones">
+        <div class="milestone">
+          <div class="m-dot-col"><div class="m-dot"></div><div class="m-connector"></div></div>
+          <div class="m-date">Jul 6</div>
+          <div class="m-body">
+            <div class="m-title">AI boundaries defined</div>
+            <div class="m-desc">The AI is trained to stay on topic — it won't promise things it can't deliver, make up answers, or go off-script in ways that could embarrass the business</div>
+          </div>
+        </div>
+        <div class="milestone">
+          <div class="m-dot-col"><div class="m-dot"></div><div class="m-connector"></div></div>
+          <div class="m-date">Jul 9</div>
+          <div class="m-body">
+            <div class="m-title">Customer data fully protected</div>
+            <div class="m-desc">All call recordings and customer information are stored securely, with privacy standards that meet international compliance requirements</div>
+          </div>
+        </div>
+        <div class="milestone">
+          <div class="m-dot-col"><div class="m-dot"></div><div class="m-connector"></div></div>
+          <div class="m-date">Jul 13</div>
+          <div class="m-body">
+            <div class="m-title">Fraud and misuse protection active</div>
+            <div class="m-desc">The system automatically detects and blocks suspicious call patterns — protecting both the business and its customers from bad actors</div>
+          </div>
+        </div>
+        <div class="milestone">
+          <div class="m-dot-col"><div class="m-dot"></div><div class="m-connector"></div></div>
+          <div class="m-date">Jul 17</div>
+          <div class="m-body">
+            <div class="m-title">Smooth human handoff</div>
+            <div class="m-desc">When a situation is beyond what the AI should handle, it transfers the caller to a human agent seamlessly — no awkward pauses, no lost context</div>
+          </div>
+        </div>
+        <div class="milestone">
+          <div class="m-dot-col"><div class="m-dot"></div></div>
+          <div class="m-date">Jul 20 ✦</div>
+          <div class="m-body">
+            <div class="m-title">Phase 3 complete</div>
+            <div class="m-outcome">System is safe, compliant, and protected — ready for real customer interactions</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHASE 4 -->
+    <div class="phase-block">
+      <div class="phase-wrap">
+        <div class="phase-dot">4</div>
+        <div class="phase-pill" onclick="toggle(this)">
+          <div class="phase-info">
+            <div class="phase-name">Business Control Dashboard</div>
+            <div class="phase-date">Jul 6 — Jul 20, 2026</div>
+          </div>
+          <div class="phase-dur">15 days</div>
+          <div class="phase-chev">›</div>
+        </div>
+      </div>
+      <div class="milestones">
+        <div class="milestone">
+          <div class="m-dot-col"><div class="m-dot"></div><div class="m-connector"></div></div>
+          <div class="m-date">Jul 6</div>
+          <div class="m-body">
+            <div class="m-title">Client billing & payment reports</div>
+            <div class="m-desc">Each business client gets a clean dashboard showing their usage, call volumes, and outstanding payments — no chasing invoices, everything visible at a glance</div>
+          </div>
+        </div>
+        <div class="milestone">
+          <div class="m-dot-col"><div class="m-dot"></div><div class="m-connector"></div></div>
+          <div class="m-date">Jul 10</div>
+          <div class="m-body">
+            <div class="m-title">Daily rate management</div>
+            <div class="m-desc">Operations teams can set and update the freight rate for any given day directly from the dashboard — the AI agent will use that rate as the starting point in every driver conversation</div>
+          </div>
+        </div>
+        <div class="milestone">
+          <div class="m-dot-col"><div class="m-dot"></div><div class="m-connector"></div></div>
+          <div class="m-date">Jul 14</div>
+          <div class="m-body">
+            <div class="m-title">Agent briefing synced to live rates</div>
+            <div class="m-desc">As soon as a rate is entered, the AI is instantly briefed — it opens every driver call already knowing today's price, so negotiations stay accurate and consistent across all calls</div>
+          </div>
+        </div>
+        <div class="milestone">
+          <div class="m-dot-col"><div class="m-dot"></div><div class="m-connector"></div></div>
+          <div class="m-date">Jul 17</div>
+          <div class="m-body">
+            <div class="m-title">Multi-client SaaS model ready</div>
+            <div class="m-desc">The platform supports multiple business clients each with their own isolated data, pricing, and reporting — the foundation for scalable recurring revenue</div>
+          </div>
+        </div>
+        <div class="milestone">
+          <div class="m-dot-col"><div class="m-dot"></div></div>
+          <div class="m-date">Jul 20 ✦</div>
+          <div class="m-body">
+            <div class="m-title">Phase 4 complete</div>
+            <div class="m-outcome">Clients can set daily rates, view payments, and the AI automatically opens driver calls at the right price</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHASE 5 -->
+    <div class="phase-block">
+      <div class="phase-wrap">
+        <div class="phase-dot">5</div>
+        <div class="phase-pill" onclick="toggle(this)">
+          <div class="phase-info">
+            <div class="phase-name">Reliability & Scale</div>
+            <div class="phase-date">Jul 21 — Aug 5, 2026</div>
+          </div>
+          <div class="phase-dur">16 days</div>
+          <div class="phase-chev">›</div>
+        </div>
+      </div>
+      <div class="milestones">
+        <div class="milestone">
+          <div class="m-dot-col"><div class="m-dot"></div><div class="m-connector"></div></div>
+          <div class="m-date">Jul 21</div>
+          <div class="m-body">
+            <div class="m-title">Call quality polished</div>
+            <div class="m-desc">Response speed optimised so conversations feel natural and instant — no dead air, no delays that make callers hang up</div>
+          </div>
+        </div>
+        <div class="milestone">
+          <div class="m-dot-col"><div class="m-dot"></div><div class="m-connector"></div></div>
+          <div class="m-date">Jul 26</div>
+          <div class="m-body">
+            <div class="m-title">Handles many calls at once</div>
+            <div class="m-desc">The system manages hundreds of simultaneous driver calls without slowing down — the same quality whether it's handling 10 calls or 1,000</div>
+          </div>
+        </div>
+        <div class="milestone">
+          <div class="m-dot-col"><div class="m-dot"></div><div class="m-connector"></div></div>
+          <div class="m-date">Jul 30</div>
+          <div class="m-body">
+            <div class="m-title">Self-healing and monitored 24/7</div>
+            <div class="m-desc">The system automatically recovers from any disruption and alerts the team if something needs attention — so clients never experience unexpected downtime</div>
+          </div>
+        </div>
+        <div class="milestone">
+          <div class="m-dot-col"><div class="m-dot"></div></div>
+          <div class="m-date">Aug 5 ✦</div>
+          <div class="m-body">
+            <div class="m-title">Phase 5 complete</div>
+            <div class="m-outcome">Stable, high-capacity system — cleared for full commercial deployment</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHASE 6 -->
+    <div class="phase-block">
+      <div class="phase-wrap">
+        <div class="phase-dot">6</div>
+        <div class="phase-pill" onclick="toggle(this)">
+          <div class="phase-info">
+            <div class="phase-name">Pilot Launch & Investor Demo</div>
+            <div class="phase-date">Aug 6 — Aug 20, 2026</div>
+          </div>
+          <div class="phase-dur">15 days</div>
+          <div class="phase-chev">›</div>
+        </div>
+      </div>
+      <div class="milestones">
+        <div class="milestone">
+          <div class="m-dot-col"><div class="m-dot"></div><div class="m-connector"></div></div>
+          <div class="m-date">Aug 6</div>
+          <div class="m-body">
+            <div class="m-title">First live client calls</div>
+            <div class="m-desc">Real drivers receive and respond to AI-handled calls for the first time — rate negotiations, scheduling confirmations, and FAQ handling all running without human involvement</div>
+          </div>
+        </div>
+        <div class="milestone">
+          <div class="m-dot-col"><div class="m-dot"></div><div class="m-connector"></div></div>
+          <div class="m-date">Aug 12</div>
+          <div class="m-body">
+            <div class="m-title">Investor demo ready</div>
+            <div class="m-desc">Live demonstration of the AI taking a call, quoting today's rate, and closing a driver booking — all in Bangla, with no human involved</div>
+          </div>
+        </div>
+        <div class="milestone">
+          <div class="m-dot-col"><div class="m-dot"></div><div class="m-connector"></div></div>
+          <div class="m-date">Aug 16</div>
+          <div class="m-body">
+            <div class="m-title">Early results packaged for investors</div>
+            <div class="m-desc">Call success rates, cost savings versus human agents, and client satisfaction data compiled into a clear investor-ready performance report</div>
+          </div>
+        </div>
+        <div class="milestone">
+          <div class="m-dot-col"><div class="m-dot"></div></div>
+          <div class="m-date">Aug 20 ✦</div>
+          <div class="m-body">
+            <div class="m-title">🎉 MVP Live</div>
+            <div class="m-outcome">Investors experience live Bangla AI calls · First clients onboarded · Commercial scaling begins Sep 2026</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FINAL BOX -->
+  <div class="final-box">
+    <div class="final-title">What we will see on August 20</div>
+    <div class="chips">
+      <div class="chip">Live Bangla voice calls</div>
+      <div class="chip">Inbound & outbound</div>
+      <div class="chip">Driver rate negotiations</div>
+      <div class="chip">Daily price control dashboard</div>
+      <div class="chip">Payment & billing reports</div>
+      <div class="chip">Multi-client SaaS platform</div>
+      <div class="chip">Low-latency conversations</div>
+      <div class="chip">AI guardrails active</div>
+      <div class="chip">Security & compliance</div>
+      <div class="chip">Ready to scale</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function toggle(pill) {
+  const block = pill.closest('.phase-block');
+  const mil = block.querySelector('.milestones');
+  const chev = pill.querySelector('.phase-chev');
+  const open = mil.classList.contains('open');
+  mil.classList.toggle('open', !open);
+  chev.classList.toggle('open', !open);
+}
+</script>
+</body>
+</html>
